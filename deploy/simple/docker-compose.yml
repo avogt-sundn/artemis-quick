@@ -9,12 +9,24 @@ include:
 services:
 
   artemis:
-    scale: 2
+    scale: 1
     image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus
       AMQ_PASSWORD: quarkus
       AMQ_CLUSTERED: true
+
+  artemis-ports:
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    environment:
+      AMQ_USER: quarkus
+      AMQ_PASSWORD: quarkus
+      AMQ_CLUSTERED: true
+      AMQ_EXTRA_ARGS: "--relax-jolokia"
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "5672:5672"
 
   producer:
     image: artemis-quick/producer:1.0-${QUARKUS_MODE:-jvm}
