@@ -53,3 +53,6 @@ Im Image wird Artemis mit diesem Skript gestartet:
 
 - Red Hat Dokumentation
   - https://docs.redhat.com/en/documentation/red_hat_amq/7.3/html-single/configuring_amq_broker/index#broker-configuration-files-location-configuring
+- Quarkus amq extension properties
+  - https://quarkus.io/guides/amqp-reference
+- 

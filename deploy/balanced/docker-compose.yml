@@ -1,0 +1,55 @@
+networks:
+  default:
+    name: docker-default-network
+    external: true
+
+include:
+  - ../../docker-compose-build.yml
+  - ../../loadbalancer/docker-compose.yml
+
+services:
+
+
+  node:
+    scale: 2
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    environment:
+      AMQ_USER: quarkus
+      AMQ_PASSWORD: quarkus
+      AMQ_CLUSTERED: true
+    labels:
+      - 'traefik.enable=true'
+      - "traefik.tcp.services.artemis.loadbalancer.server.port=61616"
+      - "traefik.tcp.routers.artemis.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.artemis.service=artemis"
+      - "traefik.tcp.routers.artemis.entryPoints=artemis"
+
+
+  artemis-ports:
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    environment:
+      AMQ_USER: quarkus
+      AMQ_PASSWORD: quarkus
+      AMQ_CLUSTERED: true
+      AMQ_EXTRA_ARGS: "--relax-jolokia"
+    ports:
+      - "8161:8161"
+
+  producer:
+    image: artemis-quick/producer:1.0-${QUARKUS_MODE:-jvm}
+    environment:
+      AMQP_HOST: artemis
+      AMQP_PORT: 61616
+    ports:
+      - "8080:8080"
+    links:
+      - artemis
+
+  processor:
+    image: artemis-quick/processor:1.0-${QUARKUS_MODE:-jvm}
+    environment:
+      AMQP_HOST: artemis
+      AMQP_PORT: 61616
+    links:
+      - artemis
+

@@ -1,4 +1,4 @@
-Quarkus AMQP 1.0 Quickstart
+**Quarkus** AMQP 1.0 Quickstart
 ============================
 
 This project illustrates how you can interact with AMQP 1.0 (Apache Artemis in this quickstart) using MicroProfile Reactive Messaging.
@@ -16,7 +16,7 @@ In a second terminal, run:
 
 ```bash
 > mvn -f amqp-quickstart-processor quarkus:dev
-```  
+```
 
 Then, open your browser to `http://localhost:8080/quotes.html`, and click on the "Request Quote" button.
 
@@ -39,7 +39,7 @@ Start the broker and the applications using:
 ```
 
 Then, open your browser to `http://localhost:8080/quotes.html`, and click on the "Request Quote" button.
- 
+
 
 ## Build the application in native mode
 
@@ -50,7 +50,7 @@ To build the applications into native executables, run:
 > mvn -f amqp-quickstart-processor package -Pnative -Dquarkus.native.container-build=true
 ```
 
-The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.  
+The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.
 
 Then, start the system using:
 
