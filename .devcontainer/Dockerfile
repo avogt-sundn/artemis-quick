@@ -9,7 +9,7 @@ ENV IGNORE_NOTICE=true
 
 
 # BEGIN ------ install common utils: ping, dig, ncat, pip, yq
-RUN apt-get update && apt-get install -y iputils-ping dnsutils apache2-utils python3-pip httpie \
+RUN apt-get update && apt-get install -y iputils-ping dnsutils apache2-utils python3-pip httpie telnet \
     && pip install yq
 #   END ------ install common utils: ping, dig, ncat, pip, yq
 # BEGIN ------ Playwright Chromium
@@ -70,10 +70,10 @@ RUN curl -fsSL https://ollama.com/install.sh | sh
 RUN apt-get update && apt-get install -y graphviz
 # END   plantuml extension
 
-LABEL traefik.enable="true" \
-    traefik.http.services.organization-service.loadbalancer.server.port="8080" \
-    traefik.http.routers.organization-service.rule="Host(`api.localhost.direct`)" \
-    traefik.http.routers.organization-service.entrypoints="websecure" \
-    traefik.http.routers.organization-service.middlewares="cors"
+# LABEL traefik.enable="true" \
+#     traefik.http.services.organization-service.loadbalancer.server.port="8080" \
+#     traefik.http.routers.organization-service.rule="Host(`api.localhost.direct`)" \
+#     traefik.http.routers.organization-service.entrypoints="websecure" \
+#     traefik.http.routers.organization-service.middlewares="cors"
 
 EXPOSE 8080
