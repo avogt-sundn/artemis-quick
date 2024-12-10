@@ -6,17 +6,12 @@ networks:
 services:
 
   artemis:
-#    image: quay.io/artemiscloud/activemq-artemis-broker
-    build:
-        dockerfile: Dockerfile
-        context: deploy/build
-    # ports:
-    #   - "8161:8161"
-    #   - "61616:61616"
-    #   - "5672:5672"
+    scale: 2
+    image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus
       AMQ_PASSWORD: quarkus
+      AMQ_CLUSTERED: true
 
   producer:
     image: quarkus-quickstarts/amqp-quickstart-producer:1.0-${QUARKUS_MODE:-jvm}
