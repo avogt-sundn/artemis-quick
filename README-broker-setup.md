@@ -18,14 +18,24 @@ services:
     environment:
         AMQ_USER: quarkus
         AMQ_PASSWORD: quarkus
+        AMQ_CLUSTERED: true
 ````
 
 Starten mit
 
 ````bash
 docker compose up -d
-docker compose scale artemis 1
 docker compose logs -f artemis
+`````
+
+### Mit dem Cluster experimentieren:
+
+````bash
+docker compose scale artemis 1
+# bringt den Cluster auf einen Knoten
+docker compose scale artemis 2
+# bringt den Cluster auf zwei Knoten
+
 `````
 
 Im Log von Artemis wird bei jeder Änderung im Cluster die neue connection ausgegeben:

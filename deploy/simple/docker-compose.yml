@@ -20,7 +20,7 @@ services:
     image: artemis-quick/producer:1.0-${QUARKUS_MODE:-jvm}
     environment:
       AMQP_HOST: artemis
-      AMQP_PORT: 5672
+      AMQP_PORT: 61616
     ports:
       - "8080:8080"
 
@@ -28,5 +28,5 @@ services:
     image: artemis-quick/processor:1.0-${QUARKUS_MODE:-jvm}
     environment:
       AMQP_HOST: artemis
-      AMQP_PORT: 5672
+      AMQP_PORT: 61616
 
