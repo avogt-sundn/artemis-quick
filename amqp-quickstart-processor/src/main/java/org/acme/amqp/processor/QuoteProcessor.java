@@ -8,6 +8,7 @@ import org.acme.amqp.model.Quote;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
+import io.quarkus.logging.Log;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 /**
@@ -25,6 +26,7 @@ public class QuoteProcessor {
     public Quote process(String quoteRequest) throws InterruptedException {
         // simulate some hard working task
         Thread.sleep(200);
+        Log.info("---- quoteRequest is being processed. ----");
         return new Quote(quoteRequest, random.nextInt(100));
     }
 }

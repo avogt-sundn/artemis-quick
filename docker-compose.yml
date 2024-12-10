@@ -4,6 +4,7 @@ networks:
     external: true
 
 services:
+
   artemis:
     image: quay.io/artemiscloud/activemq-artemis-broker
     ports:
@@ -20,8 +21,8 @@ services:
       context: amqp-quickstart-producer
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
-      AMQP_HOST: ${AMQP_HOST:-artemis}
-      AMQP_PORT: ${AMQP_PORT:-5672}
+      AMQP_HOST: artemis
+      AMQP_PORT: 5672
     ports:
       - "8080:8080"
 
@@ -31,5 +32,5 @@ services:
       context: amqp-quickstart-processor
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     environment:
-      AMQP_HOST: ${AMQP_HOST:-artemis}
-      AMQP_PORT: ${AMQP_PORT:-5672}
+      AMQP_HOST: artemis
+      AMQP_PORT: 5672
