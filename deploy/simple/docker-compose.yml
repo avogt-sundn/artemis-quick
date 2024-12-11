@@ -9,19 +9,21 @@ include:
 services:
 
   artemis:
+    hostname: artemis
     scale: 1
     image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus
       AMQ_PASSWORD: quarkus
-      AMQ_CLUSTERED: true
+      AMQ_CLUSTERED: ${AMQ_CLUSTERED:-true}
 
-  artemis-ports:
+  ports:
+    hostname: artemis
     image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus
       AMQ_PASSWORD: quarkus
-      AMQ_CLUSTERED: true
+      AMQ_CLUSTERED: ${AMQ_CLUSTERED:-true}
       AMQ_EXTRA_ARGS: "--relax-jolokia"
     ports:
       - "8161:8161"

@@ -11,7 +11,7 @@ services:
 
 
   node:
-    scale: 2
+    scale: 1
     image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus
@@ -19,13 +19,15 @@ services:
       AMQ_CLUSTERED: true
     labels:
       - 'traefik.enable=true'
-      - "traefik.tcp.services.artemis.loadbalancer.server.port=61616"
-      - "traefik.tcp.routers.artemis.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.artemis.service=artemis"
-      - "traefik.tcp.routers.artemis.entryPoints=artemis"
+      - "traefik.http.services.artemis.loadbalancer.server.port=61616"
+      - "traefik.http.routers.artemis.rule=Host(`*`)"
+      - "traefik.http.routers.artemis.service=artemis"
+      - "traefik.http.routers.artemis.entryPoints=artemis"
 
 
   artemis-ports:
+    scale: 0
+    hostname: artemis
     image: quay.io/artemiscloud/activemq-artemis-broker
     environment:
       AMQ_USER: quarkus

@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class QuoteProcessorTest {
+class QuoteProcessorTest {
 
     @ConfigProperty(name = "amqp-host") String host;
     @ConfigProperty(name = "amqp-port") int port;

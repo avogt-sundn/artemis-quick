@@ -6,13 +6,13 @@ networks:
 services:
 
   artemis:
-    #image: avogt/traefik-with-localhost-tls:2.10
-    image: traefik
+    image: avogt/traefik-with-localhost-tls:2.10
+    #image: traefik
     ports:
       - '8888:8080'
       - '61616:61616'
     command:
-      - --entryPoints.artemis.address=:61616/tcp
+      - --entryPoints.artemis.address=:61616
       - --providers.docker=true
       - --providers.docker.watch=true
       - --providers.docker.exposedbydefault=false
@@ -21,10 +21,3 @@ services:
       - --api.dashboard=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-  # build-nginx:
-  #   image: artemis-quick/loadbalancer:1.0
-  #   scale: 0
-  #   build: .
-  #   ports:
-  #     - "80:80"
