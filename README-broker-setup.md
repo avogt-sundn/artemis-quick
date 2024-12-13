@@ -49,10 +49,56 @@ Im Image wird Artemis mit diesem Skript gestartet:
 
     artemis-1  | /opt/amq/bin/launch.sh: line 49: /home/jboss/broker/bin/artemis: No such file or directory
 
+## Initialisierung des Containers
+
+### Logging
+
+Im Init Script wird die log4j Konfiguration von der Datei
+
+      echo 'JAVA_ARGS=" $JAVA_ARGS -Dlog4j2.configurationFile=$ARTEMIS_HOME/conf/log4j2.properties "' >> ${instanceDir}/etc/artemis.profile
+
+### AMQ_CLUSTERED=true
+
+Die Variable AMQ_CLUSTERD wird beim Starten des Containers umgesetzt zu:
+
+
+      <cluster-user>cluster_user</cluster-user>
+
+      <cluster-password>cluster_password</cluster-password>
+
+      <broadcast-groups>
+         <broadcast-group name="bg-group1">
+            <group-address>231.7.7.7</group-address>
+            <group-port>9876</group-port>
+            <broadcast-period>5000</broadcast-period>
+            <connector-ref>artemis</connector-ref>
+         </broadcast-group>
+      </broadcast-groups>
+
+      <discovery-groups>
+         <discovery-group name="dg-group1">
+            <group-address>231.7.7.7</group-address>
+            <group-port>9876</group-port>
+            <refresh-timeout>10000</refresh-timeout>
+         </discovery-group>
+      </discovery-groups>
+
+      <cluster-connections>
+         <cluster-connection name="my-cluster">
+            <connector-ref>artemis</connector-ref>
+            <message-load-balancing>ON_DEMAND</message-load-balancing>
+            <max-hops>0</max-hops>
+            <discovery-group-ref discovery-group-name="dg-group1"/>
+         </cluster-connection>
+      </cluster-connections>
 ## Links
 
 - Red Hat Dokumentation
   - https://docs.redhat.com/en/documentation/red_hat_amq/7.3/html-single/configuring_amq_broker/index#broker-configuration-files-location-configuring
 - Quarkus amq extension properties
   - https://quarkus.io/guides/amqp-reference
-- 
+
+- Wie startet der container und parametrisiert Artemis?
+  -  https://github.com/amq-broker-hub/amq-on-openshift/tree/main/init-container
+  -  https://github.com/artemiscloud/activemq-artemis-broker-kubernetes-image/blob/main/modules/activemq-artemis-launch/added/launch.sh
+  -
