@@ -12,8 +12,8 @@ services:
     hostname: artemis
     image: artemis-quick/custom/amq-broker-rhel8:7.12.3
     build: .
-    #volumes:
-    #  - shared-data:/opt/amq-broker/data/
+    volumes:
+      - shared-data:/opt/amq-broker/data/
     environment:
       AMQ_USER: quarkus
       AMQ_PASSWORD: quarkus
@@ -23,3 +23,15 @@ services:
       - "8161:8161"
       - "61616:61616"
       - "5672:5672"
+
+  artemis:
+    hostname: artemis
+    image: artemis-quick/custom/amq-broker-rhel8:7.12.3
+    build: .
+    volumes:
+      - shared-data:/opt/amq-broker/data/
+    environment:
+      AMQ_USER: quarkus
+      AMQ_PASSWORD: quarkus
+      AMQ_CLUSTERED: ${AMQ_CLUSTERED:-true}
+      AMQ_EXTRA_ARGS: "--relax-jolokia --shared-store"
