@@ -20,7 +20,7 @@ public class QuoteProcessor {
 
     private Random random = new Random();
 
-    @Incoming("requests") // <1>
+    @Incoming("quote-requests") // <1>
     @Outgoing("quotes") // <2>
     @Blocking // <3>
     public Quote process(String quoteRequest) throws InterruptedException {
